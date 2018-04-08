@@ -1,11 +1,30 @@
-@()
+@(visits : List[Visit])
 
 @main("Play Java AWS Elastic Beanstalk Demo") {
   <div class="container-fluid">
     <h1>Play Java AWS Elastic Beanstalk Demo</h1>
-    <div class="alert alert-warning" role="alert">
-      Test AWS Deployment
+    <div class="alert alert-info" role="alert">
+      Refresh the Page to update the Visits Book!
     </div>
-    <button type="button" class="btn btn-primary">Test</button>
+    <div class="table-responsive">
+      <table class="table table-dark table-hover">
+        <thead>
+          <tr>
+            <th>Id Visit</th>
+            <th>IP Address</th>
+            <th>Datetime</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(visit <- visits) {
+            <tr>
+              <td>@visit.getId()</td>
+              <td>@visit.getIpAddress()</td>
+              <td>@visit.getTimestamp()</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
 }

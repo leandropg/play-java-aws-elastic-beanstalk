@@ -1,5 +1,6 @@
 package models;
 
+import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.Entity;
@@ -15,17 +16,22 @@ public class Visit extends Model {
      * Id
      */
     @Id
-    public Integer id;
+    private Integer id;
 
     /**
      * IP Address
      */
-    public String ipAddress;
+    private String ipAddress;
 
     /**
      * Timestamp
      */
-    public Long timestamp;
+    private Long timestamp;
+
+    /**
+     * Find Object
+     */
+    public static Finder<Integer, Visit> find = new Finder<>(Visit.class);
 
     public Integer getId() {
         return id;
