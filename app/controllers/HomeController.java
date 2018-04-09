@@ -1,9 +1,11 @@
 package controllers;
 
+import io.ebean.Ebean;
 import models.Visit;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -20,10 +22,23 @@ public class HomeController extends Controller {
      */
     public Result index() {
 
+        Calendar calendar;
+        Visit currentVisit;
         List<Visit> visits;
 
+        // Obtain Calendar Instance
+        calendar = Calendar.getInstance();
+
+        // Create Current Visit
+        currentVisit = new Visit();
+        currentVisit.setIpAddress(request().remoteAddress());
+        currentVisit.setVisitDate(calendar.getTime());
+
+        // Save Visit
+        Ebean.save(currentVisit);
+
         // Obtain Visits
-        visits = Visit.find.all();
+        visits = Visit.findAllDescending();
 
         // Show Visits
         return ok(views.html.index.render(visits));

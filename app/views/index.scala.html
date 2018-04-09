@@ -3,16 +3,17 @@
 @main("Play Java AWS Elastic Beanstalk Demo") {
   <div class="container-fluid">
     <h1>Play Java AWS Elastic Beanstalk Demo</h1>
-    <div class="alert alert-info" role="alert">
-      Refresh the Page to update the Visits Book!
+    <div class="alert alert-primary">
+      Press <strong>F5</strong> to update the Visits Book!
     </div>
     <div class="table-responsive">
-      <table class="table table-dark table-hover">
-        <thead>
+      <table class="table table-hover">
+        <thead class="thead-dark">
           <tr>
             <th>Id Visit</th>
             <th>IP Address</th>
-            <th>Datetime</th>
+            <th>Date</th>
+            <th>Time</th>
           </tr>
         </thead>
         <tbody>
@@ -20,7 +21,8 @@
             <tr>
               <td>@visit.getId()</td>
               <td>@visit.getIpAddress()</td>
-              <td>@visit.getTimestamp()</td>
+              <td>@visit.getVisitDate().format("dd MMM yyyy")</td>
+              <td>@visit.getVisitDate().format("HH:mm:ss")</td>
             </tr>
           }
         </tbody>

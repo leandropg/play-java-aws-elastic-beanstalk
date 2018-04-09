@@ -5,6 +5,8 @@ import io.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Visit
@@ -24,14 +26,23 @@ public class Visit extends Model {
     private String ipAddress;
 
     /**
-     * Timestamp
+     * Visit Date
      */
-    private Long timestamp;
+    private Date visitDate;
 
     /**
-     * Find Object
+     * Find All Descending
      */
-    public static Finder<Integer, Visit> find = new Finder<>(Visit.class);
+    public static List<Visit> findAllDescending() {
+
+        Finder finder;
+
+        // Obtain Finder
+        finder = new Finder<Integer, Visit>(Visit.class);
+
+        // Obtain Visit Order Descending
+        return finder.query().orderBy("id DESC").findList();
+    }
 
     public Integer getId() {
         return id;
@@ -49,11 +60,11 @@ public class Visit extends Model {
         this.ipAddress = ipAddress;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
+    public Date getVisitDate() {
+        return visitDate;
     }
 
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
+    public void setVisitDate(Date visitDate) {
+        this.visitDate = visitDate;
     }
 }
