@@ -8,6 +8,8 @@ This is an **Play Java Framework Example** that generate a **Docker Image** to d
 
 2. Create a root user and password for this database
 
+3. Run the script **1.sql** located in ``conf/evolutions/default``
+
 #### Environment Variables
 
 1. Modify the file **/etc/profile** and create the next **Environment Variables** replacing all brackets for your personal values:
