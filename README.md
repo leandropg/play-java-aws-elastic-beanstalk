@@ -31,25 +31,41 @@ For the application secret use a Random String.
 
 2. Enter to directory **play-java-aws-elastic-beanstalk** ``cd play-java-aws-elastic-beanstalk``
 
-3. Execute **SBT** with the command ``sbt``
+3. Modify in the file **play-java-aws-elastic-beanstalk.conf** your domain name:
 
-4. Into **SBT Shell** execute the next task in order:
+```
+server {
+    listen 80;
+    server_name [Your Domain Name];
+    location / {
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Host      $http_host;
+        proxy_pass         http://127.0.0.1:9000;
+    }
+}
+```
+
+4. Execute **SBT** with the command ``sbt``
+
+5. Into **SBT Shell** execute the next task in order:
 
     1. ``clean``
     2. ``compile``
     3. ``docker:stage``
     4. ``exit``
 
-5. Copy **Dockerfile** file into the directory **target/docker/stage** ``cp Dockerfile target/docker/stage``
+6. Copy **Dockerfile** file into the directory **target/docker/stage** ``cp Dockerfile target/docker/stage``
 
-6. Enter to directory **target/docker/stage** ``cd target/docker/stage``
+7. Copy **EB Extensions Directory** into the directory **target/docker/stage** ``cp -r .ebextensions target/docker/stage``
 
-7. Generate the **Docker Image** with the command ``docker build -t deploy-aws-image .``
+8. Enter to directory **target/docker/stage** ``cd target/docker/stage``
 
-8. Verify that the Docker Image was generated with the command ``docker images | grep deploy-aws-image``
+9. Generate the **Docker Image** with the command ``docker build -t deploy-aws-image .``
 
-9. Run the Docker Image with the command ``docker run -p 9000:9000 -e DB_DEFAULT_URL -e DB_DEFAULT_USERNAME -e DB_DEFAULT_PASSWORD -e APPLICATION_SECRET deploy-aws-image``
+10. Verify that the Docker Image was generated with the command ``docker images | grep deploy-aws-image``
 
-10. Into the directory ``target/docker/stage``, create a ZIP file with the command ``zip -r ../deploy-aws-image.zip .``
+11. Run the Docker Image with the command ``docker run -p 9000:9000 -e DB_DEFAULT_URL -e DB_DEFAULT_USERNAME -e DB_DEFAULT_PASSWORD -e APPLICATION_SECRET deploy-aws-image``
 
-11. The ZIP **deploy-aws-image.zip** is stored in the directory ``play-java-aws-elastic-beanstalk/target/docker``
+12. Into the directory ``target/docker/stage``, create a ZIP file with the command ``zip -r ../deploy-aws-image.zip .``
+
+13. The ZIP **deploy-aws-image.zip** is stored in the directory ``play-java-aws-elastic-beanstalk/target/docker``
